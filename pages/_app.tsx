@@ -1,5 +1,7 @@
 import type { AppProps } from "next/app";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { ThirdwebProvider, coinbaseWallet, localWallet, magicLink, metamaskWallet, paperWallet, safeWallet, smartWallet, walletConnect } from "@thirdweb-dev/react";
+import { BaseGoerli, PolygonZkevmTestnet } from "@thirdweb-dev/chains";
+
 import "../styles/globals.css";
 
 // This is the chain your dApp will work on.
@@ -9,7 +11,35 @@ const activeChain = "ethereum";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider activeChain={activeChain}>
+    <ThirdwebProvider 
+      activeChain={activeChain}
+      supportedChains={[
+        BaseGoerli, 
+        PolygonZkevmTestnet]}
+        supportedWallets={[
+          metamaskWallet(),
+          coinbaseWallet(),
+          walletConnect(),
+          safeWallet(),
+          // paperWallet({
+          //   clientId:''
+          // }),
+          // magicLink({
+          //   apiKey:''
+          // }),
+          smartWallet({
+            factoryAddress:"",
+            thirdwebApiKey:'',
+            gasless: true,
+            personalWallets: [
+              metamaskWallet(),
+              localWallet()
+            ]
+          }),
+          localWallet()
+        ]}
+      >
+        
       <Component {...pageProps} />
     </ThirdwebProvider>
   );
