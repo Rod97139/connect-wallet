@@ -12,7 +12,8 @@ const activeChain = "ethereum";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThirdwebProvider 
-      activeChain={activeChain}
+      // activeChain={activeChain}
+      activeChain={BaseGoerli}
       supportedChains={[
         BaseGoerli, 
         PolygonZkevmTestnet]}
